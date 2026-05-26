@@ -83,6 +83,40 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
+## Folder structure
+<p>
+  All of this will be within the source folder; the business logic will be defined there, but no app configuration will be linked.
+</p>
+The fixed folder structure will be as follows:
+<p align=center>
+  <img src="./resource/folder-structure.png" width="700"/>
+</p>
+
+## Architecture 
+
+<p>
+  The architecture we will follow to ensure the project's future maintainability will be the well-known 3-layer structure:
+</p> 
+<ul>
+  <li>Infraestructure(Data Access layer)</li>
+  <li>Service(Bussiness Logic)</li>
+  <li>Controllers(Presentation)</li>
+</ul>
+
+<p align=center>
+  <img src="./resource/architecture.png" width="300"/>
+</p>
+
+## REQUEST FLOW
+The API will have a server response that will be a REST API, in JSON format.
+<p>
+  This service, based on NestJS, is a microservice of several integrated systems. Its purpose is for this service to function as the main part to be able to make payments for the tuition of our system assigned to the subject of software engineering 2.
+</p>
+
+<p align=center>
+  <img src="./resource/image.png" width="700"/>
+</p>
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
