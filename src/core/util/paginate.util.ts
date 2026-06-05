@@ -1,7 +1,7 @@
 import { PaginationDto } from "core/dto";
 import { PaginatedResult } from "core/interface";
 import { ObjectLiteral, Repository } from "typeorm";
-import { SelectQueryBuilder } from "typeorm/browser";
+import { SelectQueryBuilder } from "typeorm";
 
 /**
  * Paginates a TypeORM query.

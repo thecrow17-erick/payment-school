@@ -24,7 +24,7 @@ export class FatherRepository implements FatherRepositoryInterface {
         { search: searchPattern }
       );
     }
-    return paginate(queryBuilder, paginationDto);
+    return await paginate(queryBuilder, paginationDto);
   }
 
   public async findById(id: number): Promise<Father | null> {
