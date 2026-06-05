@@ -1,5 +1,6 @@
 import { Father } from "@database/entities";
-import { PaginationDto, PaginatedResult } from "@core/dto";
+import { PaginationDto } from "@core/dto";
+import { PaginatedResult } from "core/interface";
 
 
 export interface FatherRepositoryInterface {
@@ -7,4 +8,7 @@ export interface FatherRepositoryInterface {
     findByName(name: string): Promise<Father | null>;
     findAll(paginationDto: PaginationDto): Promise<PaginatedResult<Father>>;
     createFather(father: Father): Promise<Father>;
+    findByEmail(email: string): Promise<Father | null>;
+    findByPhone(phone: string): Promise<Father | null>;
+    updateFather(father: Father): Promise<Father>;
 }

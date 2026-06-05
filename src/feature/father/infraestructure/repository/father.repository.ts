@@ -11,33 +11,46 @@ import { paginate } from "core/util/paginate.util";
 export class FatherRepository implements FatherRepositoryInterface {
 
     constructor(
-        @InjectRepository(Father)
-        private readonly repository: Repository<Father>
+      @InjectRepository(Father)
+      private readonly repository: Repository<Father>
     ){}
 
-    public findAll(paginationDto: PaginationDto): Promise<PaginatedResult<Father>> {
-        const queryBuilder = this.repository.createQueryBuilder('father');
+    public async findAll(paginationDto: PaginationDto): Promise<PaginatedResult<Father>> {
+      const queryBuilder = this.repository.createQueryBuilder('father');
 
-        if (paginationDto.search) {
-            const searchPattern = `%${paginationDto.search}%`;
-            queryBuilder.where(
-                '(father.name ILIKE :search OR father.lastName ILIKE :search OR father.email ILIKE :search OR father.document ILIKE :search)',
-                { search: searchPattern }
-            );
-        }
+      if (paginationDto.search) {
+        const searchPattern = `%${paginationDto.search}%`;
+        queryBuilder.where(
+          '(father.name ILIKE :search OR father.lastName ILIKE :search OR father.email ILIKE :search OR father.document ILIKE :search)',
+          { search: searchPattern }
+        );
+      }
 
-        return paginate(queryBuilder, paginationDto);
+      return paginate(queryBuilder, paginationDto);
     }
-    public findById(id: number): Promise<Father | null> {
-        return this.repository.findOne({ where: { id } });
+    public async findById(id: number): Promise<Father | null> {
+      return this.repository.findOne({ where: { id } });
     }
 
-    public findByName(name: string): Promise<Father | null> {
-        return this.repository.findOne({ where: { name } });
+    public async findByName(name: string): Promise<Father | null> {
+      return this.repository.findOne({ where: { name } });
     }
-    
-    public createFather(father: Father): Promise<Father> {
-        const newFather = this.repository.create(father);
-        return this.repository.save(newFather);
+
+    public async createFather(father: Father): Promise<Father> {
+      const newFather = this.repository.create(father);
+      return this.repository.save(newFather);
     }
+
+    public async updateFather(father: Father): Promise<Father> {
+      return this.repository.save(father);
+    }
+
+    public async findByEmail(email: string): Promise<Father | null> {
+      return this.repository.findOne({ where: { email } });
+    }
+
+    public async findByPhone(phone: string): Promise<Father | null> {
+      return this.repository.findOne({ where: { phone } });
+    }
+
 }

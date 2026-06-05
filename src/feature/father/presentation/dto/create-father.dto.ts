@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MaxLength } from "class-validator";
 
 export class CreateFatherDto {
   @IsString()
@@ -18,8 +18,9 @@ export class CreateFatherDto {
 
   @IsString()
   @MaxLength(20)
-  @IsOptional()
-  phone?: string;
+  @IsNotEmpty()
+  @IsPhoneNumber('BO')
+  phone!: string;
 
   @IsString()
   @MaxLength(50)
@@ -33,20 +34,16 @@ export class CreateFatherDto {
 
   @IsString()
   @MaxLength(20)
-  @IsNotEmpty()
-  typeDoc!: string;
+  @IsOptional()
+  typeDoc?: string;
 
   @IsString()
   @MaxLength(50)
-  @IsNotEmpty()
-  document!: string;
+  @IsOptional()
+  document?: string;
 
   @IsString()
   @MaxLength(150)
   @IsOptional()
   reasonSocial?: string;
-
-  @IsBoolean()
-  @IsOptional()
-  isActive?: boolean;
 }
