@@ -10,5 +10,6 @@ export interface FatherRepositoryInterface {
     createFather(father: Father): Promise<Father>;
     findByEmail(email: string): Promise<Father | null>;
     findByPhone(phone: string): Promise<Father | null>;
+    findByUsername(username: string): Promise<Father | null>;
     updateFather(father: Father): Promise<Father>;
 }

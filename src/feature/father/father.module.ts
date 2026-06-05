@@ -17,5 +17,6 @@ import { Father } from '@database/entities';
         FatherController, 
     ],
     providers: [FatherService, FatherRepository],
+    exports: [FatherService]
 })
 export class FatherModule { }

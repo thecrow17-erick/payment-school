@@ -1,4 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import * as bcrypt from "bcrypt";
+
 import { FatherRepository } from "feature/father/infraestructure/repository";
 import { PaginationDto } from "@core/dto";
 import { Father } from "@database/entities";
@@ -38,7 +40,7 @@ export class FatherService {
     newFather.email = father.email;
     newFather.phone = father.phone;
     newFather.username = father.username;
-    newFather.password = father.password;
+    newFather.password = this.encryptPasswordForFather(father.phone);
     newFather.typeDoc = father.typeDoc || '';
     newFather.document = father.document || '';
     newFather.reasonSocial = father.reasonSocial || '';
@@ -68,7 +70,7 @@ export class FatherService {
     findFather.email = father.email || findFather.email;
     findFather.phone = father.phone || findFather.phone;
     findFather.username = father.username || findFather.username;
-    findFather.password = father.password || findFather.password;
+    findFather.password =  father.password ? this.encryptPasswordForFather(father.password) : findFather.password;
     findFather.typeDoc = father.typeDoc || findFather.typeDoc || '';
     findFather.document = father.document || findFather.document || '';
     findFather.reasonSocial = father.reasonSocial || findFather.reasonSocial || '';
@@ -82,5 +84,17 @@ export class FatherService {
     }
     findFather.isActive = !findFather.isActive; // Eliminación lógica
     return await this.fatherRepository.updateFather(findFather);
+  }
+
+  public async findByEmail(email: string): Promise<Father | null> {
+    return await this.fatherRepository.findByEmail(email);
+  }
+
+  public encryptPasswordForFather(password: string): string {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
+  }
+  public async findByUsername(username: string): Promise<Father | null> {
+    return await this.fatherRepository.findByUsername(username);
   }
 }

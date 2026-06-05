@@ -1,3 +1,5 @@
+import { AuthModule } from './feature/auth/auth.module';
+import { StudentModule } from './feature/student/student.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { AllExceptionsFilter } from './core/filter';
 import { FatherModule } from './feature/father/father.module';
@@ -8,6 +10,8 @@ import { TransformResponseInterceptor } from '@core/interceptor';
 
 @Module({
   imports: [
+    AuthModule, 
+    StudentModule, 
     FatherModule, 
     EnvConfigModule,
     ConfigDatabaseModule

@@ -27,10 +27,10 @@ export class CreateFatherDto {
   @IsNotEmpty()
   username!: string;
 
-  @IsString()
-  @MaxLength(255)
-  @IsNotEmpty()
-  password!: string;
+  // @IsString()
+  // @MaxLength(255)
+  // @IsNotEmpty()
+  // password!: string;
 
   @IsString()
   @MaxLength(20)
