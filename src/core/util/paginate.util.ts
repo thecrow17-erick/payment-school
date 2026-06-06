@@ -37,7 +37,7 @@ export async function paginate<T extends ObjectLiteral>(
   const totalPages = Math.ceil(total / limit);
 
   return {
-    data,
+    results: data,
     meta: {
       total,
       page,

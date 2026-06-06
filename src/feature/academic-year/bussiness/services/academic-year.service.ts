@@ -2,7 +2,7 @@
 https://docs.nestjs.com/providers#services
 */
 
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PaginationDto } from 'core/dto';
 import { AcademicYear } from 'database/entities';
 import { AcademicYearRepository } from 'feature/academic-year/infraestructure/repository';
@@ -19,6 +19,10 @@ export class AcademicYearService {
   }
 
   public async findOne(id: number) {
+    const findId = await this.academicYearRepository.findById(id);
+    if (!findId) {
+      throw new NotFoundException('El año académico no existe');
+    }
     return this.academicYearRepository.findById(id);  
   }
 

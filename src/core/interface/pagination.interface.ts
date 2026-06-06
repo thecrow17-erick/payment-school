@@ -8,6 +8,6 @@ export interface PaginationMeta {
 }
 
 export interface PaginatedResult<T> {
-  data: T[];
+  results: T[];
   meta: PaginationMeta;
 }

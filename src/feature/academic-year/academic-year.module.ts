@@ -14,6 +14,8 @@ import { AcademicYearRepository } from './infraestructure/repository';
     controllers: [
         AcademicYearController, ],
     providers: [
-        AcademicYearService, AcademicYearRepository],
+        AcademicYearService, AcademicYearRepository
+    ],
+    exports: [AcademicYearService]
 })
 export class AcademicYearModule { }
