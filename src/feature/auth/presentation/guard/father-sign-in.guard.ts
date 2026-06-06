@@ -4,10 +4,10 @@ https://docs.nestjs.com/guards#guards
 
 import { Injectable, CanActivate, ExecutionContext, NotFoundException } from '@nestjs/common';
 import { Request } from 'express';
+import { SignInResponse } from 'feature/auth/bussiness/interface';
 import { AuthRepository } from 'feature/auth/infraestructure/repository/auth.repository';
 import { FatherService } from 'feature/father/Bussines/service';
 import { Observable } from 'rxjs';
-import { SignInResponse } from '../interface';
 
 @Injectable()
 export class FatherSignInGuard implements CanActivate {

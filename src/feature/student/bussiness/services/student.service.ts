@@ -89,6 +89,4 @@ export class StudentService {
     student.isActive = !student.isActive;
     return await this.studentRepository.updateStudent(student);
   }
-
-
 }

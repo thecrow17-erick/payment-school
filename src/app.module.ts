@@ -1,3 +1,4 @@
+import { AcademicYearModule } from './feature/academic-year/academic-year.module';
 import { AuthModule } from './feature/auth/auth.module';
 import { StudentModule } from './feature/student/student.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
@@ -10,6 +11,7 @@ import { TransformResponseInterceptor } from '@core/interceptor';
 
 @Module({
   imports: [
+    AcademicYearModule, 
     AuthModule, 
     StudentModule, 
     FatherModule, 
