@@ -1,3 +1,4 @@
+import { RabbitCoreModule } from './core/rabbitMQ/rabbit-core/rabbit-core.module';
 import { DebtModule } from './feature/debt/debt.module';
 import { BillingConceptModule } from './feature/billing-concept/billing-concept.module';
 import { AcademicYearModule } from './feature/academic-year/academic-year.module';
@@ -13,7 +14,7 @@ import { ConfigDatabaseModule } from '@config/typeOrm';
 import { TransformResponseInterceptor } from '@core/interceptor';
 
 @Module({
-  imports: [
+  imports: [ RabbitCoreModule,
         DebtModule, 
     BillingConceptModule, 
     AcademicYearModule, 
