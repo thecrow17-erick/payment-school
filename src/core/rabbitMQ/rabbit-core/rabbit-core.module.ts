@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { QUEUES, SERVICE_NAME } from '../const';
+import { RawSerializer } from 'core/serializer';
 
 @Global()
 @Module({
@@ -15,12 +16,13 @@ import { QUEUES, SERVICE_NAME } from '../const';
           queueOptions: {
             durable: true,
           },
+          serializer: new RawSerializer()
         }
       }
     ])
   ],
   controllers: [],
   providers: [],
-  exports: [],
+  exports: [ClientsModule],
 })
 export class RabbitCoreModule {}

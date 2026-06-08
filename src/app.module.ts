@@ -14,8 +14,9 @@ import { ConfigDatabaseModule } from '@config/typeOrm';
 import { TransformResponseInterceptor } from '@core/interceptor';
 
 @Module({
-  imports: [ RabbitCoreModule,
-        DebtModule, 
+  imports: [ 
+    RabbitCoreModule,
+    DebtModule, 
     BillingConceptModule, 
     AcademicYearModule, 
     AuthModule, 

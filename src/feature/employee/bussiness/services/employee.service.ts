@@ -13,6 +13,17 @@ export class EmployeeService {
     return this.employeeRepository.findAll();
   }
 
+  public async findByExternalIdOrCreate(externalId: number, createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+    let employee = await this.employeeRepository.findByExternalId(externalId);
+    if (!employee) {
+      employee = new Employee();
+      employee.erpCode = createEmployeeDto.erpCode;
+      employee.externalId = createEmployeeDto.externalId;
+      employee = await this.employeeRepository.createEmployee(employee);
+    }
+    return employee;
+  }
+
   public async createEmployee(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
     const existing = await this.employeeRepository.findByExternalId(createEmployeeDto.externalId);
     if (existing) {
@@ -59,5 +70,14 @@ export class EmployeeService {
       throw new NotFoundException(`Empleado con externalId ${externalId} no encontrado`);
     }
     return employee;
+  }
+
+  public async updateIsActive(externalId: number, isActive: boolean): Promise<Employee> {
+    const employee = await this.employeeRepository.findByExternalId(externalId);
+    if (!employee) {
+      throw new NotFoundException(`Empleado con externalId ${externalId} no encontrado`);
+    }
+    employee.isActive = isActive;
+    return this.employeeRepository.updateEmployee(employee);
   }
 }

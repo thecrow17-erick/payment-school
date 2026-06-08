@@ -2,14 +2,14 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Controller, Get, HttpCode, HttpStatus, Inject, Param, ParseIntPipe, Query, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Inject, Param, ParseIntPipe, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
 import { PaginationDto } from 'core/dto';
 import { ApiResponse, PaginatedResult } from 'core/interface';
 import { Debt } from 'database/entities';
 import { type Request } from 'express';
-import { FatherSignInGuard } from 'feature/auth/presentation/guard';
+import { EmployeeAuthGuard, FatherSignInGuard } from 'feature/auth/presentation/guard';
 import { DebtService } from 'feature/debt/bussiness/services';
 import { firstValueFrom } from 'rxjs';
 
@@ -37,20 +37,15 @@ export class DebtController {
     };
   }
 
-  // @HttpCode(HttpStatus.OK)
-  // @Get('/:id')
-  // public async getDebtById(
-  // ): Promise<ApiResponse<any>> {
-  //   const payload = { id: 1, name: "Eirck uwu" };
-  //   console.log('Enviando mensaje al ERP con payload:', payload);
-  //   // ENVIAR SOLO EL ID (Primitivo)
-  //   const response = await firstValueFrom(
-  //     this.client.send('handlePaymentTest', payload)
-  //   );
-  //    console.log('Respuesta recibida del ERP:', response);
-  //   return {
-  //     data: response,
-  //     message: 'Debt retrieved successfully',
-  //   };
-  // }
+  @HttpCode(HttpStatus.OK)
+  @Post('/')
+  @UseGuards(EmployeeAuthGuard)
+  public async getDebtById(
+    @Req() req: Request
+  ): Promise<ApiResponse<string>> {
+    return {
+      data: "Pruebas we",
+      message: 'Debt retrieved successfully',
+    };
+  }
 }

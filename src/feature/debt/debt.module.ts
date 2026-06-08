@@ -13,12 +13,14 @@ import { AuthModule } from 'feature/auth/auth.module';
 import { FatherModule } from 'feature/father/father.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { RawSerializer } from 'core/serializer/raw-serializer.serializer';
+import { EmployeeModule } from 'feature/employee/employee.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Debt, DebtDetail]),
         FatherModule,
         AuthModule,
+        EmployeeModule
     ],
     controllers: [
         DebtController, ],

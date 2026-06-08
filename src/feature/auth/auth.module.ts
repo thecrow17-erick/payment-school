@@ -7,6 +7,9 @@ import { AuthController } from './presentation/controller/auth.controller';
 import { AuthRepository } from './infraestructure/repository';
 import { FatherModule } from 'feature/father/father.module';
 import { FatherSignInGuard } from './presentation/guard';
+import { EmployeeAuthAdapter } from './infraestructure/adapter';
+import { RabbitCoreModule } from 'core/rabbitMQ/rabbit-core/rabbit-core.module';
+import { EmployeeModule } from 'feature/employee/employee.module';
 
 @Module({
     imports: [
@@ -21,12 +24,17 @@ import { FatherSignInGuard } from './presentation/guard';
                 },
             }),
         }),
-        FatherModule
+        FatherModule,
+        EmployeeModule
     ],
     controllers: [AuthController],
     providers: [
-        AuthService, AuthRepository
+        AuthService, AuthRepository, {
+            provide: 'EmployeeAdapterInterface',
+            useClass: EmployeeAuthAdapter
+        },
+        EmployeeAuthAdapter
     ],
-    exports: [PassportModule, JwtModule, AuthService, AuthRepository],
+    exports: [PassportModule, JwtModule, AuthService, AuthRepository,  'EmployeeAdapterInterface', EmployeeAuthAdapter],
 })
 export class AuthModule { }
