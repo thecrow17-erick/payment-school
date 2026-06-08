@@ -1,7 +1,8 @@
 import { BaseEntity } from "core/entities";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { JoinAttribute } from "typeorm/query-builder/JoinAttribute.js";
 import { AcademicYear } from "./academic-year.entity";
+import { DebtDetail } from "./debt-detail.entity";
 
 
 
@@ -32,6 +33,10 @@ export class BillingConcept extends BaseEntity {
   @JoinColumn({ name: 'academic_year_id' })
   @ManyToOne(() => AcademicYear, (academicYear) => academicYear.billingConcepts)
   academicYear!: AcademicYear;
+
+  @OneToMany(() => DebtDetail, (debtDetail) => debtDetail.concept)
+  debtDetails!: DebtDetail[];
+
 }
 
 

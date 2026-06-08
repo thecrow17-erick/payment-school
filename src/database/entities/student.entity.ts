@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '@core/entities';
 import { Father } from './father.entity';
+import { DebtDetail } from './debt-detail.entity';
 
 @Entity('students')
 export class Student extends BaseEntity {
@@ -19,4 +20,7 @@ export class Student extends BaseEntity {
   @ManyToOne(() => Father, (father) => father.students, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'father_id' })
   father!: Father;
+
+  @OneToMany(() => DebtDetail, (debtDetail) => debtDetail.student)
+  debtDetails!: DebtDetail[];
 }

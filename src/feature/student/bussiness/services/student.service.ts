@@ -44,7 +44,6 @@ export class StudentService {
   }
 
   public async updateStudent(id: number, updateStudent: UpdateStudentDto): Promise<Student> {
-    console.log(updateStudent);
     if(updateStudent.email) {
       const findByEmail = await this.studentRepository.findByEmail(updateStudent.email!);
       if(findByEmail) {

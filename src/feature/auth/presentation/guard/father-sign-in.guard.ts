@@ -3,6 +3,7 @@ https://docs.nestjs.com/guards#guards
 */
 
 import { Injectable, CanActivate, ExecutionContext, NotFoundException } from '@nestjs/common';
+import { Father } from 'database/entities';
 import { Request } from 'express';
 import { SignInResponse } from 'feature/auth/bussiness/interface';
 import { AuthRepository } from 'feature/auth/infraestructure/repository/auth.repository';
@@ -29,17 +30,18 @@ export class FatherSignInGuard implements CanActivate {
     if (!token) {
       throw new NotFoundException('Token no encontrado');
     }
-    const fatherDecode = await this.authRepository.tokenDecode<SignInResponse>(token);
+    const fatherDecode = await this.authRepository.tokenDecode<{id: number}>(token);
     if(!fatherDecode){
       throw new NotFoundException('Padre no encontrado, o fecha de expiración del token ha pasado');
     }
-    const findIdFather = await this.fatherService.findOne(fatherDecode.father.id);
+    const findIdFather = await this.fatherService.findOne(fatherDecode.id);
     if(!findIdFather){
       throw new NotFoundException('Padre no encontrado');
     }
     if(!findIdFather.isActive){
       throw new NotFoundException('Padre no está activo');
     }
+    request.fatherId = findIdFather.id;
     return true;
   }
 }

@@ -25,7 +25,7 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new BadRequestException('Contraseña incorrecta');
     }
-    const token = await this.authRepository.generateToken({ id: user.id, username: user.username });
+    const token = await this.authRepository.generateToken({id: user.id});
     return {
       father: user,
       token

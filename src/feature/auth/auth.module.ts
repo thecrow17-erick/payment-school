@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './presentation/controller/auth.controller';
 import { AuthRepository } from './infraestructure/repository';
 import { FatherModule } from 'feature/father/father.module';
+import { FatherSignInGuard } from './presentation/guard';
 
 @Module({
     imports: [
@@ -26,6 +27,6 @@ import { FatherModule } from 'feature/father/father.module';
     providers: [
         AuthService, AuthRepository
     ],
-    exports: [PassportModule, JwtModule],
+    exports: [PassportModule, JwtModule, AuthService, AuthRepository],
 })
 export class AuthModule { }

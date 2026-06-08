@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsDateString, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
 import { PaginatedResult } from 'core/interface/pagination.interface';
@@ -20,6 +20,14 @@ export class PaginationDto {
   @IsOptional()
   @IsString()
   readonly search?: string;
+
+  @IsOptional()
+  @IsDateString()
+  readonly startDate?: string;
+
+  @IsOptional()
+  @IsDateString()
+  readonly endDate?: string;
 }
 
 
