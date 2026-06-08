@@ -27,4 +27,7 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
   public async findByExternalId(externalId: number): Promise<Employee | null> {
     return this.repository.findOne({ where: { externalId } });
   }
+  public async findById(id: number): Promise<Employee | null> {
+    return this.repository.findOne({ where: { id } });
+  }
 }

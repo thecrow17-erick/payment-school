@@ -11,9 +11,8 @@ export class DebtDetail extends BaseEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2, name: 'amount' })
   amount: number;
 
-  @Column({ type: 'boolean', name: 'is_payment' })
-  isPayment: boolean;
-
+  @Column({ type: 'boolean', name: 'is_payment', default: false })
+  isPayment?: boolean;
 
   @JoinColumn({name: 'student_id'})
   @ManyToOne(() => Student, student => student)
@@ -26,5 +25,4 @@ export class DebtDetail extends BaseEntity {
   @JoinColumn({ name: 'debt_id' })
   @ManyToOne(() => Debt, debt => debt.details)
   debt: Debt;
-
 }

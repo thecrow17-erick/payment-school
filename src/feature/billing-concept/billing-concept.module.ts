@@ -20,5 +20,8 @@ import { AcademicYearModule } from 'feature/academic-year/academic-year.module';
     providers: [
         BillingConceptService, BillingConceptRepository
     ],
+    exports: [
+        BillingConceptService, BillingConceptRepository
+    ]
 })
 export class BillingConceptModule { }

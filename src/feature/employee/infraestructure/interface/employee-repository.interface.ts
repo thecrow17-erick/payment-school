@@ -5,4 +5,5 @@ export interface EmployeeRepositoryInterface {
   createEmployee(employee: Employee): Promise<Employee>;
   updateEmployee(employee: Employee): Promise<Employee>;
   findByExternalId(externalId: number): Promise<Employee | null>;
+  findById(id: number): Promise<Employee | null>;
 }

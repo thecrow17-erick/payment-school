@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { DebtRepositoryInterface } from "../interface";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Debt } from "database/entities";
+import { Debt, DebtDetail } from "database/entities";
 import { Repository } from "typeorm";
 import { PaginationDto } from "core/dto";
 import { PaginatedResult } from "core/interface";
@@ -18,8 +18,10 @@ export class DebtRepository implements DebtRepositoryInterface {
 
   public async findAllDebts(paginationDto: PaginationDto, fatherId: number): Promise<PaginatedResult<Debt>> {
     const queryBuilder = this.repository.createQueryBuilder('debt');
-    queryBuilder.innerJoinAndSelect('debt_detail', 'detail', 'detail.debt_id = debt.id');
-    queryBuilder.innerJoin('students', 'student', 'student.id = detail.student_id');
+    queryBuilder.innerJoinAndSelect('debt.employee', 'employee');
+    queryBuilder.innerJoinAndSelect('debt.details', 'detail');
+    queryBuilder.innerJoinAndSelect('detail.student', 'student');
+    queryBuilder.innerJoinAndSelect('detail.concept', 'concept');
     queryBuilder.where('student.father_id = :fatherId', { fatherId });
     if (paginationDto.search) {
       const search = `%${paginationDto.search}%`;
@@ -41,6 +43,28 @@ export class DebtRepository implements DebtRepositoryInterface {
         details: true,
       }
     });
+  }
+
+  public async createDebt(debt: Debt): Promise<Debt> {
+    return await this.repository.manager.transaction(async (entityManager) => {
+      const savedDebt = await entityManager.save(Debt, debt);
+      if (debt.details && debt.details.length > 0) {
+        for (const detail of debt.details) {
+          detail.debt = savedDebt;
+        }
+        const savedDetails = await entityManager.save(DebtDetail, debt.details);
+        // Remove circular back-reference before returning
+        savedDebt.details = savedDetails.map((detail) => {
+          delete (detail as any).debt;
+          return detail;
+        });
+      }
+      return savedDebt;
+    });
+  }
+
+  public async updateDebt(debt: Debt): Promise<Debt> {
+    return await this.repository.save(debt);
   }
 
 }

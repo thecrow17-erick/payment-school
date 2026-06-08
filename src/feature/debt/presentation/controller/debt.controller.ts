@@ -2,16 +2,14 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Controller, Get, HttpCode, HttpStatus, Inject, Param, ParseIntPipe, Post, Query, Req, UseGuards } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { AuthGuard } from '@nestjs/passport';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { PaginationDto } from 'core/dto';
 import { ApiResponse, PaginatedResult } from 'core/interface';
 import { Debt } from 'database/entities';
 import { type Request } from 'express';
 import { EmployeeAuthGuard, FatherSignInGuard } from 'feature/auth/presentation/guard';
 import { DebtService } from 'feature/debt/bussiness/services';
-import { firstValueFrom } from 'rxjs';
+import { CreateDebtDto } from '../dto';
 
 @Controller('debt')
 export class DebtController { 
@@ -37,15 +35,18 @@ export class DebtController {
     };
   }
 
-  @HttpCode(HttpStatus.OK)
-  @Post('/')
+  @HttpCode(HttpStatus.CREATED)
+  @Post()
   @UseGuards(EmployeeAuthGuard)
-  public async getDebtById(
-    @Req() req: Request
-  ): Promise<ApiResponse<string>> {
+  public async createDebt(
+    @Req() req: Request,
+    @Body() createDebtDto: CreateDebtDto
+  ): Promise<ApiResponse<Debt>> {
+    const employeeId = req.employeeId!;
+    const debt = await this.debtService.createDebt(employeeId, createDebtDto);
     return {
-      data: "Pruebas we",
-      message: 'Debt retrieved successfully',
+      data: debt,
+      message: 'Debt created successfully',
     };
   }
 }

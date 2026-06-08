@@ -80,4 +80,11 @@ export class EmployeeService {
     employee.isActive = isActive;
     return this.employeeRepository.updateEmployee(employee);
   }
+  public async findById(id: number): Promise<Employee> {  
+    const employee = await this.employeeRepository.findById(id);
+    if (!employee) {
+      throw new NotFoundException(`Empleado con id ${id} no encontrado`);
+    }
+    return employee;
+  }
 }

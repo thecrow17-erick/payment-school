@@ -1,5 +1,5 @@
 import { BaseEntity } from "core/entities";
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { DebtDetail } from "./debt-detail.entity";
 import { Employee } from "./employee.entity";
 
@@ -31,12 +31,11 @@ export class Debt extends BaseEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2, name: 'total_payment' })
   totalPayment: number;
 
-  @Column({type: 'int', name: 'employeed_id'})
-  employeedId: number;
 
   @OneToMany(() => DebtDetail, debtDetail => debtDetail.debt)
   details: DebtDetail[];
 
+  @JoinColumn({ name: 'employee_id' })
   @ManyToOne(() => Employee, employee => employee.debts)
   employee: Employee;
 }

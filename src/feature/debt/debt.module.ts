@@ -14,13 +14,15 @@ import { FatherModule } from 'feature/father/father.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { RawSerializer } from 'core/serializer/raw-serializer.serializer';
 import { EmployeeModule } from 'feature/employee/employee.module';
+import { BillingConceptModule } from 'feature/billing-concept/billing-concept.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Debt, DebtDetail]),
         FatherModule,
         AuthModule,
-        EmployeeModule
+        EmployeeModule,
+        BillingConceptModule,
     ],
     controllers: [
         DebtController, ],

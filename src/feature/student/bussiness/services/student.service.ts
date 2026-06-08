@@ -88,4 +88,8 @@ export class StudentService {
     student.isActive = !student.isActive;
     return await this.studentRepository.updateStudent(student);
   }
+
+  public async findStudentsByIdList(ids: number[]): Promise<Student[]> {
+    return await this.studentRepository.findStudentsByIdList(ids);
+  }
 }

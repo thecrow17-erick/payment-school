@@ -15,7 +15,7 @@ export class CreateDebtDto {
 
   @IsInt()
   @IsNotEmpty()
-  employeeId: number;
+  fatherId: number;
 
   @IsNotEmpty()
   @ValidateNested({ each: true }) 

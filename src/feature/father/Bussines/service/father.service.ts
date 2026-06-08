@@ -97,4 +97,8 @@ export class FatherService {
   public async findByUsername(username: string): Promise<Father | null> {
     return await this.fatherRepository.findByUsername(username);
   }
+
+  public async findByIdSelectStudents(id: number): Promise<Father | null> {
+    return await this.fatherRepository.findByIdSelectStudents(id);
+  }
 }

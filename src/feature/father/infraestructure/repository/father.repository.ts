@@ -56,4 +56,10 @@ export class FatherRepository implements FatherRepositoryInterface {
     return this.repository.findOne({ where: { username } });
   }
 
+  public async findByIdSelectStudents(id: number): Promise<Father | null> {
+    return this.repository.findOne({ where: { id }, relations: {
+      students: true
+    } });
+  }
+
 }

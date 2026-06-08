@@ -9,4 +9,5 @@ export interface StudentRepositoryInterface {
   updateStudent(student: Student): Promise<Student>;
   findByEmail(email: string): Promise<Student | null>; 
   findById(id: number): Promise<Student | null>;
+  findStudentsByIdList(ids: number[]): Promise<Student[]>;
 }

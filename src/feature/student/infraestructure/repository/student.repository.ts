@@ -46,4 +46,9 @@ export class StudentRepository implements StudentRepositoryInterface {
     return this.repository.findOne({ where: { id } });
   }
 
+  public async findStudentsByIdList(ids: number[]): Promise<Student[]> {
+    const queryBuilder = this.repository.createQueryBuilder('student');
+    queryBuilder.where('student.id IN (:...ids)', { ids });
+    return queryBuilder.getMany();
+  }
 }
