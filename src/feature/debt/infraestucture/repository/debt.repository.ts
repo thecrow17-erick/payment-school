@@ -23,6 +23,8 @@ export class DebtRepository implements DebtRepositoryInterface {
     queryBuilder.innerJoinAndSelect('detail.student', 'student');
     queryBuilder.innerJoinAndSelect('detail.concept', 'concept');
     queryBuilder.where('student.father_id = :fatherId', { fatherId });
+    queryBuilder.andWhere('debt.status != :cancelStatus', { cancelStatus: 'cancel' });
+    queryBuilder.andWhere('debt.total_debt > 0');
     if (paginationDto.search) {
       const search = `%${paginationDto.search}%`;
       queryBuilder.andWhere('debt.description ILIKE :search', { search });

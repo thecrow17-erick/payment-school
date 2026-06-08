@@ -2,7 +2,7 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { PaginationDto } from 'core/dto';
 import { ApiResponse, PaginatedResult } from 'core/interface';
 import { Debt } from 'database/entities';
@@ -47,6 +47,19 @@ export class DebtController {
     return {
       data: debt,
       message: 'Debt created successfully',
+    };
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Patch('/cancel/:debtId')
+  @UseGuards(EmployeeAuthGuard)
+  public async cancelDebt(
+    @Param('debtId', ParseIntPipe) debtId: number,
+  ): Promise<ApiResponse<Debt>> {
+    const debt = await this.debtService.cancelDebt(debtId);
+    return {
+      data: debt,
+      message: 'Deuda cancelada exitosamente',
     };
   }
 }
