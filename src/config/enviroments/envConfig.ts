@@ -7,4 +7,5 @@ export const EnvConfig = () => ({
   dbName: process.env.DB_NAME || 'payment_school',
   jwtSecret: process.env.JWT_SECRET || 'fallback_secret_key_for_dev_change_it_in_prod',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '24h',
+  stripeKey: process.env.STRIPE_KEY || 'fallback_stripe_key_for_dev_change_it_in_prod',
 });

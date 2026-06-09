@@ -39,6 +39,10 @@ export class PaymentRepository implements IPaymentRepository {
     return await this.paymentRepo.findOne({ 
       where: { id },
       //relations: ['paymentMethod', 'paymentDetails', 'paymentDetails.concept', 'paymentDetails.debtDetail'],
+      relations: {
+        paymentMethod: true,
+        paymentDetails: true
+      }
     });
   }
 

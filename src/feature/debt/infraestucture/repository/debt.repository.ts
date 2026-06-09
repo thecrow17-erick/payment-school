@@ -8,7 +8,6 @@ import { PaginatedResult } from "core/interface";
 import { paginate } from "core/util/paginate.util";
 
 
-
 @Injectable()
 export class DebtRepository implements DebtRepositoryInterface {
   constructor(
