@@ -4,5 +4,8 @@ export * from './debt-detail.entity';
 export * from './debt.entity';
 export * from './employee.entity';
 export * from './father.entity';
+export * from './payment-detail.entity';
+export * from './payment-method.entity';
+export * from './payment.entity';
 export * from './student.entity';
 export * from './user.entity';

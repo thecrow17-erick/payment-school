@@ -1,3 +1,4 @@
+import { PaymentModule } from './feature/payment/payment.module';
 import { RabbitCoreModule } from './core/rabbitMQ/rabbit-core/rabbit-core.module';
 import { DebtModule } from './feature/debt/debt.module';
 import { BillingConceptModule } from './feature/billing-concept/billing-concept.module';
@@ -15,6 +16,7 @@ import { TransformResponseInterceptor } from '@core/interceptor';
 
 @Module({
   imports: [ 
+    PaymentModule, 
     RabbitCoreModule,
     DebtModule, 
     BillingConceptModule, 

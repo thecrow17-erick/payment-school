@@ -1,8 +1,9 @@
 import { BaseEntity } from "core/entities";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { Debt } from "./debt.entity";
 import { BillingConcept } from "./billing-concept.entity";
 import { Student } from "./student.entity";
+import { PaymentDetail } from "./payment-detail.entity";
 
 
 @Entity('debt_detail')
@@ -12,7 +13,7 @@ export class DebtDetail extends BaseEntity {
   amount: number;
 
   @Column({ type: 'boolean', name: 'is_payment', default: false })
-  isPayment?: boolean;
+  isPayment: boolean;
 
   @JoinColumn({name: 'student_id'})
   @ManyToOne(() => Student, student => student)
@@ -25,4 +26,7 @@ export class DebtDetail extends BaseEntity {
   @JoinColumn({ name: 'debt_id' })
   @ManyToOne(() => Debt, debt => debt.details)
   debt: Debt;
+
+  @OneToOne(() => PaymentDetail, paymentDetail => paymentDetail.debtDetail)
+  paymentDetail: PaymentDetail;
 }

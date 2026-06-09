@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { JoinAttribute } from "typeorm/query-builder/JoinAttribute.js";
 import { AcademicYear } from "./academic-year.entity";
 import { DebtDetail } from "./debt-detail.entity";
+import { PaymentDetail } from "./payment-detail.entity";
 
 
 
@@ -37,6 +38,8 @@ export class BillingConcept extends BaseEntity {
   @OneToMany(() => DebtDetail, (debtDetail) => debtDetail.concept)
   debtDetails!: DebtDetail[];
 
+  @OneToMany(() => PaymentDetail, (paymentDetail) => paymentDetail.concept)
+  paymentDetails!: PaymentDetail[];
 }
 
 
